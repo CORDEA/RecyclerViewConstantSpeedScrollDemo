@@ -1,0 +1,2 @@
+rootProject.name='RecyclerViewConstantSpeedScrollDemo'
+include ':app'
