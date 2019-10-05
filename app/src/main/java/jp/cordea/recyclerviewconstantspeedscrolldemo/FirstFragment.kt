@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import jp.cordea.recyclerviewconstantspeedscrolldemo.databinding.FragmentFirstBinding
 
 class FirstFragment : Fragment() {
+    private lateinit var binding: FragmentFirstBinding
+
     private val viewModel by viewModels<FirstViewModel>()
 
     override fun onCreateView(
@@ -16,7 +19,8 @@ class FirstFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentFirstBinding.inflate(inflater)
+        binding = FragmentFirstBinding.inflate(inflater)
+        binding.recyclerView.layoutManager = ConstantSpeedScrollLayoutManager(requireContext())
         binding.viewModel = viewModel
         return binding.root
     }
@@ -24,5 +28,9 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.init()
+        viewModel.scrollTo
+            .observe(viewLifecycleOwner, Observer {
+                binding.recyclerView.smoothScrollToPosition(it)
+            })
     }
 }
