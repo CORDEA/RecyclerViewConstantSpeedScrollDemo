@@ -1,5 +1,6 @@
 package jp.cordea.recyclerviewconstantspeedscrolldemo
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,13 @@ class FirstViewModel : ViewModel() {
 
     fun init() {
         adapter.addAll((0 until 20).map { MainListItem() })
+    }
+
+    fun scrollToTop(view: View) {
+        _scrollTo.value = 0
+    }
+
+    fun scrollToBottom(view: View) {
         _scrollTo.value = adapter.itemCount - 1
     }
 }
